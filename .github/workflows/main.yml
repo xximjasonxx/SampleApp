@@ -11,9 +11,19 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          echo Add other actions to build,
+      
+      - name: ACR Build
+        id: acr
+        uses: azure/acr-build@v1
+        with:
+          service_principal: b32eefc6-f384-4a8f-af2a-1265e78e18f9
+          service_principal_password: _Nz7Q~GB_UJeMfd2s_eS_U5FATGf4taRrbifr
+          tenant: e15b8f94-b657-4f98-a1f2-9df013c37c73
+          registry: acrsampleapidev.azurecr.io
+          repository: ${{ secrets.repository }}
+          image: sampleapi-dev
+          dockerfile: Dockerfile
