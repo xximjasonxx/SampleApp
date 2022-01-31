@@ -16,13 +16,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: ACR Build
-        id: acr
-        uses: azure/acr-build@v1
+      - name: Azure Login
+        uses: azure/logind@v1
         with:
-          service_principal: b32eefc6-f384-4a8f-af2a-1265e78e18f9
-          service_principal_password: _Nz7Q~GB_UJeMfd2s_eS_U5FATGf4taRrbifr
-          tenant: e15b8f94-b657-4f98-a1f2-9df013c37c73
-          registry: acrsampleapidev.azurecr.io
-          image: sampleapi-dev
-          dockerfile: Dockerfile
+          client-id: b32eefc6-f384-4a8f-af2a-1265e78e18f9
+          tenant-id: e15b8f94-b657-4f98-a1f2-9df013c37c73
+          subscription-id: cd35503e-9e28-4b2b-8445-45fc816ba088
+          client-secret: QOo7Q~sjiZHtt4KLh9fGnYabk2oMtxPGl6gM~
