@@ -20,3 +20,7 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.CREDENTIALS_AZURE }}
+
+      - run: |
+          docker build -t acrsampleapidev.azurecr.io/sampleapi:${GITHUB_RUN_ID} .
+          docker push acrsampleapidev.azurecr.io/sampleapi:${GITHUB_RUN_ID}
