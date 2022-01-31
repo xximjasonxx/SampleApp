@@ -16,7 +16,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.CREDENTIALS_AZURE }}
+      - run: |
+          az login --service-principal -u b32eefc6-f384-4a8f-af2a-1265e78e18f9 -p QOo7Q~sjiZHtt4KLh9fGnYabk2oMtxPGl6gM~ --tenant e15b8f94-b657-4f98-a1f2-9df013c37c73
