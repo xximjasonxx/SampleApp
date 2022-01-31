@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Azure Login
-        uses: azure/logind@v1
+        uses: azure/login@v1
         with:
           client-id: b32eefc6-f384-4a8f-af2a-1265e78e18f9
           tenant-id: e15b8f94-b657-4f98-a1f2-9df013c37c73
