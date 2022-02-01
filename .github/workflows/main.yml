@@ -4,10 +4,11 @@
 name: Docker Approve
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'The target version to build'
+        required: true
 
 jobs:
   build:
@@ -23,8 +24,8 @@ jobs:
 
       - run: |
           az acr login --name acrsampleapidev
-          docker build -t acrsampleapidev.azurecr.io/sampleapi:${GITHUB_RUN_ID} .
-          docker push acrsampleapidev.azurecr.io/sampleapi:${GITHUB_RUN_ID}
+          docker build -t acrsampleapidev.azurecr.io/sampleapi:${{ github.event.inputs.version }} .
+          docker push acrsampleapidev.azurecr.io/sampleapi:${{ github.event.inputs.version }}
 
   prod:
     runs-on: ubuntu-latest
@@ -37,9 +38,9 @@ jobs:
 
       - run: |
           az acr login --name acrsampleapidev
-          docker pull acrsampleapidev.azurecr.io/sampleapi:${GITHUB_RUN_ID}
+          docker pull acrsampleapidev.azurecr.io/sampleapi:${{ github.event.inputs.version }}
 
           az acr login --name acrsampleapi
-          docker tag acrsampleapidev.azurecr.io/sampleapi:${GITHUB_RUN_ID} acrsampleapi.azurecr.io/sampleapi:${GITHUB_RUN_ID}
-          docker push acrsampleapi.azurecr.io/sampleapi:${GITHUB_RUN_ID}
+          docker tag acrsampleapidev.azurecr.io/sampleapi:${{ github.event.inputs.version }} acrsampleapi.azurecr.io/sampleapi:${{ github.event.inputs.version }}
+          docker push acrsampleapi.azurecr.io/sampleapi:${{ github.event.inputs.version }}
     
