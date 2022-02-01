@@ -36,8 +36,10 @@ jobs:
           creds: ${{ secrets.CREDENTIALS_AZURE }}
 
       - run: |
-          az acr login --name acrsampleapi
+          az acr login --name acrsampleapidev
           docker pull acrsampleapidev.azurecr.io/sampleapi:${GITHUB_RUN_ID}
+
+          az acr login --name acrsampleapi
           docker tag acrsampleapidev.azurecr.io/sampleapi:${GITHUB_RUN_ID} acrsampleapi.azurecr.io/sampleapi:${GITHUB_RUN_ID}
           docker push acrsampleapi.azurecr.io/sampleapi:${GITHUB_RUN_ID}
     
