@@ -43,3 +43,4 @@ jobs:
           az acr login --name acrsampleapi
           docker tag acrsampleapidev.azurecr.io/sampleapi:v${{ github.event.inputs.version }} acrsampleapi.azurecr.io/sampleapi:v${{ github.event.inputs.version }}
           docker push acrsampleapi.azurecr.io/sampleapi:v${{ github.event.inputs.version }}
+          
