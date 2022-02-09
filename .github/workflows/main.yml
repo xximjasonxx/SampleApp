@@ -4,6 +4,10 @@
 name: Docker Approve
 
 on:
+  push:
+    branches:
+      - task/*
+      - main
   workflow_dispatch:
     inputs:
       version:
@@ -11,36 +15,47 @@ on:
         required: true
 
 jobs:
-  build:
+  codebuild:
     runs-on: ubuntu-latest
-    environment: development
     steps:
       - uses: actions/checkout@v2
-      
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.CREDENTIALS_AZURE }}
 
-      - run: |
-          az acr login --name acrsampleapidev
-          docker build -t acrsampleapidev.azurecr.io/sampleapi:v${{ github.event.inputs.version }} .
-          docker push acrsampleapidev.azurecr.io/sampleapi:v${{ github.event.inputs.version }}
+      - name: Build Code
+        run: |
+          echo ${GITHUB_WORFKLOW}
+          dotnet build --configuration Debug
+    #if: github.ref != refs/heads/main
 
-  prod:
-    runs-on: ubuntu-latest
-    environment: production
-    steps:
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.CREDENTIALS_AZURE }}
+  #dockerbuild:
+  #  runs-on: ubuntu-latest
+  #  environment: development
+  #  steps:
+  #    - uses: actions/checkout@v2
+  #    
+  #    - name: Azure Login
+  #      uses: azure/login@v1
+  #      with:
+  #        creds: ${{ secrets.CREDENTIALS_AZURE }}
 
-      - run: |
-          az acr login --name acrsampleapidev
-          docker pull acrsampleapidev.azurecr.io/sampleapi:v${{ github.event.inputs.version }}
+  #    - run: |
+  #        az acr login --name acrsampleapidev
+  #        docker build -t acrsampleapidev.azurecr.io/sampleapi:v${{ github.event.inputs.version }} .
+  #        docker push acrsampleapidev.azurecr.io/sampleapi:v${{ github.event.inputs.version }}
 
-          az acr login --name acrsampleapi
-          docker tag acrsampleapidev.azurecr.io/sampleapi:v${{ github.event.inputs.version }} acrsampleapi.azurecr.io/sampleapi:v${{ github.event.inputs.version }}
-          docker push acrsampleapi.azurecr.io/sampleapi:v${{ github.event.inputs.version }}
+  #prod:
+  #  runs-on: ubuntu-latest
+  #  environment: production
+  #  steps:
+  #    - name: Azure Login
+  #      uses: azure/login@v1
+  #      with:
+  #        creds: ${{ secrets.CREDENTIALS_AZURE }}
+
+#      - run: |
+#          az acr login --name acrsampleapidev
+#          docker pull acrsampleapidev.azurecr.io/sampleapi:v${{ github.event.inputs.version }}
+#
+#          az acr login --name acrsampleapi
+#          docker tag acrsampleapidev.azurecr.io/sampleapi:v${{ github.event.inputs.version }} acrsampleapi.azurecr.io/sampleapi:v${{ github.event.inputs.version }}
+#          docker push acrsampleapi.azurecr.io/sampleapi:v${{ github.event.inputs.version }}
           
