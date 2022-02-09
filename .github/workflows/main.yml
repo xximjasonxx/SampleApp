@@ -22,8 +22,7 @@ jobs:
 
       - name: Build Code
         run: |
-          echo "${GITHUB_WORKFLOW}"
-          dotnet build --configuration Debug
+          echo "GITHUB_EVENT_NAME: ${GITHUB_EVENT_NAME}"
     #if: github.ref != refs/heads/main
 
   #dockerbuild:
