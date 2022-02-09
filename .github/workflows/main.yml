@@ -22,7 +22,7 @@ jobs:
 
       - name: Build Code
         run: |
-          echo $GITHUB_WORFKLOW
+          echo "${GITHUB_WORKFLOW}"
           dotnet build --configuration Debug
     #if: github.ref != refs/heads/main
 
