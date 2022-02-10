@@ -31,16 +31,13 @@ jobs:
       - name: Zip Artifact
         run: |
           zip -r ../artifacts.zip *.*
-          pwd
-          ls -l
-          ls -l ../
         working-directory: ./artifacts
 
       - name: Publish Artifact
         uses: actions/upload-artifact@v1
         with:
           name: assets-for-download
-          path: ./artifact.zip
+          path: ./artifacts.zip
 
   #dockerbuild:
   #  runs-on: ubuntu-latest
