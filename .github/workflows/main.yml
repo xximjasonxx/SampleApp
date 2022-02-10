@@ -27,11 +27,10 @@ jobs:
       - name: Create Artifact
         run: |
           dotnet publish -c Release -o ./artifacts
-          ls -l
 
       - name: Zip Artifact
         run: |
-          zip -r $GITHUB_WORKSPACE/artifacts.zip *.*
+          zip -r ../artifacts.zip *.*
         working-directory: ./artifacts
 
       - name: Publish Artifact
