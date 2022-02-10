@@ -31,6 +31,9 @@ jobs:
       - name: Zip Artifact
         run: |
           zip -r ../artifacts.zip *.*
+          pwd
+          ls -l
+          ls -l ../
         working-directory: ./artifacts
 
       - name: Publish Artifact
