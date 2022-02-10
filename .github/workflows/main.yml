@@ -29,11 +29,9 @@ jobs:
           dotnet publish -c Release -o ./artifacts
 
       - name: Zip Artifact
-        uses: papeloto/action-zip@v1
-        with:
-          files: ./artifacts
-          recursive: true
-          dest: artifact.zip
+        run: |
+          zip -r artifacts.zip *.*
+        working-directory: ./artifacts
 
       - name: Publish Artifact
         uses: actions/upload-artifact@v1
