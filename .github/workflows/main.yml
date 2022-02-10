@@ -17,12 +17,29 @@ on:
 jobs:
   codebuild:
     runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch'
+    #if: github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@v2
-      - name: Build Code
+      - name: Run Unit Tests
         run: |
-          echo "GITHUB_EVENT_NAME: ${GITHUB_EVENT_NAME}"
+          echo 'Running Tests'
+
+      - name: Create Artifact
+        run: |
+          dotnet publish -c Release -o ./artifacts
+
+      - name: Zip Artifact
+        uses: papeloto/action-zip@v1
+        with:
+          files: ./artifacts
+          recursive: true
+          dest: artifact.zip
+
+      - name: Publish Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: assets-for-download
+          path: ./artifact.zip
 
   #dockerbuild:
   #  runs-on: ubuntu-latest
