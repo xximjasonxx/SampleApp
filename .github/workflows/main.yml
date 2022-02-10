@@ -17,13 +17,12 @@ on:
 jobs:
   codebuild:
     runs-on: ubuntu-latest
+    if: github.event.name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@v2
-
       - name: Build Code
         run: |
           echo "GITHUB_EVENT_NAME: ${GITHUB_EVENT_NAME}"
-    #if: github.ref != refs/heads/main
 
   #dockerbuild:
   #  runs-on: ubuntu-latest
