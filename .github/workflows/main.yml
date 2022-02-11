@@ -15,55 +15,28 @@ on:
         required: true
 
 jobs:
-  codebuild:
+  codeverify:
+    name: Verify Code
     runs-on: ubuntu-latest
-    #if: github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@v2
       - name: Run Unit Tests
         run: |
           echo 'Running Tests'
 
-      - name: Create Artifact
-        run: |
-          dotnet publish -c Release -o ./artifacts
-
-      - name: Publish Artifact
-        uses: actions/upload-artifact@v1
+  dockerbuild:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v2    
+      - name: Azure Login
+        uses: azure/login@v1
         with:
-          name: published-code
-          path: ./artifacts
+          creds: ${{ secrets.CREDENTIALS_AZURE }}
 
-  #dockerbuild:
-  #  runs-on: ubuntu-latest
-  #  environment: development
-  #  steps:
-  #    - uses: actions/checkout@v2
-  #    
-  #    - name: Azure Login
-  #      uses: azure/login@v1
-  #      with:
-  #        creds: ${{ secrets.CREDENTIALS_AZURE }}
+      - run: |
+          az acr login --name acrsampleapidev
+          docker build -t acrsampleapidev.azurecr.io/sampleapi:v${{ github.event.inputs.version }} .
+          docker push acrsampleapidev.azurecr.io/sampleapi:v${{ github.event.inputs.version }}
 
-  #    - run: |
-  #        az acr login --name acrsampleapidev
-  #        docker build -t acrsampleapidev.azurecr.io/sampleapi:v${{ github.event.inputs.version }} .
-  #        docker push acrsampleapidev.azurecr.io/sampleapi:v${{ github.event.inputs.version }}
-
-  #prod:
-  #  runs-on: ubuntu-latest
-  #  environment: production
-  #  steps:
-  #    - name: Azure Login
-  #      uses: azure/login@v1
-  #      with:
-  #        creds: ${{ secrets.CREDENTIALS_AZURE }}
-
-#      - run: |
-#          az acr login --name acrsampleapidev
-#          docker pull acrsampleapidev.azurecr.io/sampleapi:v${{ github.event.inputs.version }}
-#
-#          az acr login --name acrsampleapi
-#          docker tag acrsampleapidev.azurecr.io/sampleapi:v${{ github.event.inputs.version }} acrsampleapi.azurecr.io/sampleapi:v${{ github.event.inputs.version }}
-#          docker push acrsampleapi.azurecr.io/sampleapi:v${{ github.event.inputs.version }}
           
