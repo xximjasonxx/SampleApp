@@ -4,10 +4,10 @@
 name: Docker Approve
 
 on:
-  push:
-    branches:
-      - task/*
-      - main
+#  push:
+#    branches:
+#      - task/*
+#      - main
   workflow_dispatch:
     inputs:
       version:
