@@ -13,5 +13,5 @@ jobs:
       - name: Run echo
         run: |
           echo 'label created'
-          echo "${{ github.event.action }} ${{ github.event.label }}"
+          echo "${{ github.event.action }} ${{ github.event.label.name }}"
     
