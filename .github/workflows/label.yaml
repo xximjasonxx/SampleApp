@@ -12,5 +12,6 @@ jobs:
     steps:
       - name: Run echo
         run: |
-          echo 'Created label created'
+          echo 'label created'
+          echo "${{ github.event }}"
     
