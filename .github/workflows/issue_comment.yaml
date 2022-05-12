@@ -1,0 +1,18 @@
+name: Issue Comment Workflow
+
+on:
+  issue_comment:
+    types:
+      - created
+
+jobs:
+  comment_created:
+    runs-on: ubuntu-latest
+    name: Comment Created
+    steps:
+      - name: Run echo
+        run: |
+          echo 'comment created'
+          echo "comment created for issue ${{ github.event.issue.id }}"
+          echo "comment created by ${{ github.event.comment.user.login }}"
+          echo "comment has id of ${{ github.event.comment.id }}"
