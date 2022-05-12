@@ -1,0 +1,16 @@
+name: Label Workflow
+
+on:
+  label:
+    types:
+      - created
+
+jobs:
+  print_job:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run echo
+        run: |
+          echo 'Created label created'
+    
