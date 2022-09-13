@@ -14,7 +14,7 @@ spec:
         app: sampleapp-pod
     spec:
       containers:
-      - image: crsandboxjx01.azurecr.io/sampleapp:1.0.0
+      - image: crsandboxjx01.azurecr.io/sampleapp:1.0.1
         name: sampleapp-api
         ports:
         - containerPort: 80
