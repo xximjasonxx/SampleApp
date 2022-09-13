@@ -1,0 +1,27 @@
+name: Issue Workflow
+
+on:
+  issues:
+    types:
+      - opened
+      - labeled
+
+jobs:
+  print_open:
+    if: github.event.action == 'opened'
+    runs-on: ubuntu-latest
+    name: Print Issue Opened
+    steps:
+      - name: Run echo
+        run: |
+          echo 'issue id: ${{ github.event.issue.id }}'
+          echo 'issue title: ${{ github.event.issue.title }}'
+
+  print_label:
+    if: github.event.action == 'labeled'
+    runs-on: ubuntu-latest
+    name: Print Issue Labeled
+    steps:
+      - name: Run echo
+        run: |
+          echo 'Label ${{ github.event.label.name }} added to Issue ${{ github.event.issue.id }}'

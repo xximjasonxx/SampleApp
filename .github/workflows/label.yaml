@@ -1,0 +1,17 @@
+name: Label Workflow
+
+on:
+  label:
+    types:
+      - created
+
+jobs:
+  print_job:
+    name: Print
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run echo
+        run: |
+          echo 'label created'
+          echo "${{ github.event.action }} ${{ github.event.label.name }}"
+    
