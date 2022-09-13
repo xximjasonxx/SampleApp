@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sampleapp-deployment
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: sampleapp-pod
+  template:
+    metadata:
+      labels:
+        app: sampleapp-pod
+    spec:
+      containers:
+      - image: crsandboxjx01.azurecr.io/sampleapp:1.0.0
+        name: sampleapp-api
+        ports:
+        - containerPort: 80

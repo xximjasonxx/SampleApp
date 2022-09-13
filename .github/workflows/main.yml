@@ -1,7 +1,5 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Docker Approve
+name: Sample Api Pipeline
 
 on:
   push:
@@ -33,10 +31,11 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.CREDENTIALS_AZURE }}
+          allow-no-subscriptions: true
 
       - run: |
           az acr login --name acrsampleapidev
-          docker build -t acrsampleapidev.azurecr.io/sampleapi:v${{ github.event.inputs.version }} .
-          docker push acrsampleapidev.azurecr.io/sampleapi:v${{ github.event.inputs.version }}
+          docker build -t acrsampleapidev.azurecr.io/sampleapi:${{ github.event.inputs.version }} .
+          docker push acrsampleapidev.azurecr.io/sampleapi:${{ github.event.inputs.version }}
 
           
