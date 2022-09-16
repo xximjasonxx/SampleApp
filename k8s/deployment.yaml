@@ -14,7 +14,7 @@ spec:
         app: sampleapp-pod
     spec:
       containers:
-      - image: xximjasonxx/sampleapp:1.0.1
+      - image: xximjasonxx/sampleapp:1.0.2
         name: sampleapp-api
         ports:
         - containerPort: 80
