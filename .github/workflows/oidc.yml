@@ -1,2 +1,4 @@
 
 name: OIDC workflow test
+on:
+  workflow_dispatch:
