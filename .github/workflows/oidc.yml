@@ -11,6 +11,8 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: Script Step
-        run: |
-          echo "Hello World"
+      - uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.CLIENT_ID }}
+          tenant-id: ${{ secrets.TENANT_ID }}
+          subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
