@@ -2,3 +2,14 @@
 name: OIDC workflow test
 on:
   workflow_dispatch:
+
+jobs:
+  execute:
+    name: Execute Flow
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: sample4/app
+    steps:
+      - run: |
+          echo "Hello World"
