@@ -7,9 +7,7 @@ jobs:
   execute:
     name: Execute Flow
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: sample4/app
     steps:
-      - run: |
+      - name: Script Step
+        run: |
           echo "Hello World"
